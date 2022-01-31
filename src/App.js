@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+//import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 
@@ -47,18 +47,27 @@ function App() {
 
   const search = (evt) => {
     if (evt.key === "Enter") {
-      fetch(`${api.base}weather?q=${query}&appid=${api.key}`)
+      fetch(`${api.base}weather?q=${query}&APPID=${api.key}`)
+        //fetch(`https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=34cf615e2344946468b8a10aacc03af7`)
         .then((res) => res.json())
         .then((result) => {
           setWeather(result);
           setQuery("");
-          console.log(weather);
+          console.log(result);
         });
     }
   };
 
   return (
-    <div className="app">
+    <div
+      className={
+        typeof weather.main != "undefined"
+          ? weather.main.temp < 28
+            ? "app warm"
+            : "app"
+          : "app"
+      }
+    >
       <main>
         <div className="search-box">
           <input
@@ -71,15 +80,25 @@ function App() {
           />
         </div>
 
-        <div className="location-box">
-          <div className="location">New York City, US</div>
-          <div className="date">{dateBuilder(new Date())}</div>
-        </div>
+        {typeof weather.main != "undefined" ? (
+          <div>
+            <div className="location-box">
+              <div className="location">
+                {weather.name}, {weather.sys.country}
+              </div>
+              <div className="date">{dateBuilder(new Date())}</div>
+            </div>
 
-        <div className="weather-box">
-          <div className="temp">15 &#176;</div>
-          <div className="weather">Sunny</div>
-        </div>
+            <div className="weather-box">
+              <div className="temp">
+                {Math.round(weather.main.temp) / 10} &#176; C
+              </div>
+              <div className="weather">{weather.weather[0].main}</div>
+            </div>
+          </div>
+        ) : (
+          " "
+        )}
       </main>
     </div>
   );

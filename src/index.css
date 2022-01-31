@@ -14,7 +14,7 @@ body {
   transition: 0.4 ease-out;
 }
 
-.map .warm {
+.app.warm {
   background-image: url("./assets/clouds.jpg");
 }
 
