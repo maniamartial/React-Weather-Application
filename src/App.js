@@ -1,6 +1,8 @@
 //import logo from "./logo.svg";
-import "./App.css";
+
 import { useState } from "react";
+import ReactStrapDemon from "./components/ReactstrapDemo";
+import ReactstrapDemo1 from "./components/ReactStrapDemo1";
 
 const api = {
   key: "34cf615e2344946468b8a10aacc03af7",
@@ -79,7 +81,6 @@ function App() {
             onKeyPress={search}
           />
         </div>
-
         {typeof weather.main != "undefined" ? (
           <div>
             <div className="location-box">
